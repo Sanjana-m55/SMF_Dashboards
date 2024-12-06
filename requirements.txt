@@ -3,6 +3,5 @@ pandas
 plotly
 tabula-py>=2.0
 pymongo
-base64
 numpy
 datetime
