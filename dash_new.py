@@ -2,29 +2,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import tabula
-from pymongo import MongoClient
 import base64
 import numpy as np
 from datetime import datetime
 
-# MongoDB Configuration
-MONGO_URI = "mongodb://localhost:27017"
-DB_NAME = "SmartFinanceDB"
-ACTIVITY_COLLECTION = "user_activities"
-
 # Page Configuration
 st.set_page_config(page_title="Smart Finance Dashboard", layout="wide")
-
-# MongoDB Connection
-def get_mongo_connection():
-    client = MongoClient(MONGO_URI)
-    return client[DB_NAME]
-
-db = get_mongo_connection()
-
-# Function to log user activity
-def log_user_activity(activity):
-    db[ACTIVITY_COLLECTION].insert_one(activity)
 
 # Function to process PDF to DataFrame
 def process_pdf(file):
@@ -135,8 +118,6 @@ def display_recommendations(data):
         )
         st.plotly_chart(fig)
 
-    log_user_activity({"type": "Recommendations Page", "categories": priority_categories})
-
 # Dynamic Dashboard Creation
 def create_dashboard(data):
     st.sidebar.header("Visualization Options")
@@ -164,7 +145,6 @@ def create_dashboard(data):
         fig = px.area(data, x=x_axis, y=y_axis, color_discrete_sequence=px.colors.qualitative.Vivid)
 
     st.plotly_chart(fig, use_container_width=True)
-    log_user_activity({"type": "Chart Created", "chart_type": chart_type})
 
 # Main Application
 def main():
