@@ -1,0 +1,8 @@
+streamlit
+pandas
+plotly.express
+tabula
+MongoClient
+base64
+numpy
+datetime
